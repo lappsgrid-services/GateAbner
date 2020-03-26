@@ -1,0 +1,21 @@
+#!/usr/bin/env lsd
+
+String version = "1.0.0"
+File versionFile = new File("VERSION")
+if (versionFile.exists()) {
+    version = versionFile.text.trim()
+}
+
+File file = new File("src/test/resources/gate-doc.xml")
+if (!file.exists()) {
+    println "Could not find the GATE document in ${file.path}"
+    return
+}
+Data data = new Data(Uri.GATE, file.text)
+
+String url = "http://localhost:8080/GateAbner/$version/services/AbnerTagger"
+def client = new ServiceClient(url)
+String json = client.execute(data.asJson())
+data = Serializer.parse(json)
+println data.payload
+

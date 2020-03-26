@@ -1,0 +1,19 @@
+#!/usr/bin/env lsd
+
+// Check the service on the service manager.
+
+String url = "http://vassar.lappsgrid.org/invoker/anc:gate.abner_1.0.0"
+String creds = "tester"
+def tagger = new ServiceClient(url, creds, creds)
+
+File file = new File("src/test/resources/sample.txt")
+if (!file.exists()) {
+    println "Unable to load sample.txt"
+    return
+}
+
+Container container = new Container()
+container.text = file.text
+Data data = new Data(Uri.LIF, container)
+String json = tagger.execute(data.asJson())
+println json

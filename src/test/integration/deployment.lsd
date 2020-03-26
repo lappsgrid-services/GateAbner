@@ -1,0 +1,35 @@
+#!/usr/bin/env lsd
+
+String version = "1.0.0"
+File versionFile = new File("VERSION")
+if (versionFile.exists()) {
+    version = versionFile.text.trim()
+}
+
+File file = new File("src/test/resources/gate-doc.xml")
+if (!file.exists()) {
+    println "Could not find the GATE document in ${file.path}"
+    return
+}
+Data data = new Data(Uri.GATE, file.text)
+
+String url = "http://grid.anc.org:9080/GateAbner/$version/services/AbnerTagger"
+def client = new ServiceClient(url)
+println client.getMetadata()
+String json = client.execute(data.asJson())
+data = Serializer.parse(json)
+println data.payload
+
+file = new File("src/test/resources/sample.txt")
+if (!file.exists()) {
+    println "ERROR: Unable to load sample.txt"
+    return
+}
+
+Container container = new Container()
+container.text = file.text
+data = new Data(Uri.LIF, container)
+json = client.execute(data.asJson())
+data = Serializer.parse(json)
+println data.asPrettyJson()
+

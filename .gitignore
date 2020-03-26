@@ -1,0 +1,13 @@
+*.iws
+*.ipr
+*.iml
+idea/
+
+target/
+
+VERSION
+Version.java
+
+*.log
+*.tgz
+

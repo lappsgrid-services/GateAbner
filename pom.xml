@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 The American National Corpus
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.lappsgrid.maven</groupId>
+        <artifactId>war-parent-pom</artifactId>
+        <version>2.2.2</version>
+    </parent>
+
+    <groupId>edu.vassar.cs.lapps</groupId>
+    <artifactId>gate-abner</artifactId>
+    <version>1.0.0</version>
+    <name>Gate Abner Tagger</name>
+    <description>Biomedical named entity recognizer.</description>
+    <packaging>war</packaging>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <build>
+        <finalName>GateAbner#${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.anc.maven.plugins</groupId>
+                <artifactId>anc-maven-plugin</artifactId>
+                <version>1.1.1-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <id>build-number</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>version-file</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>version</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>version-class</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>version-class</goal>
+                        </goals>
+                        <configuration>
+                            <package>edu.vassar.cs.lapps.gate.abner</package>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>uk.ac.gate</groupId>
+            <artifactId>gate-core</artifactId>
+            <version>8.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>api</artifactId>
+            <version>${lapps.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>metadata</artifactId>
+            <version>${lapps.metadata.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>discriminator</artifactId>
+            <version>${lapps.discriminator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>serialization</artifactId>
+            <version>${lapps.serialization.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.anc.lapps.gate</groupId>
+            <artifactId>serialization</artifactId>
+            <version>2.1.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>
